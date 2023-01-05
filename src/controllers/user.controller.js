@@ -4,27 +4,12 @@ import fetch from "node-fetch";
 
 class UserController {
 
-    create = async (req, res, next) => {
-        // res.send(req.body)
-        fetch(`https://api.hubapi.com/content/api/v2/pages`, {
-            method: 'POST',
-            body: JSON.stringify(
-                req.body
-            ),
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
-            },
+    addPage = async (req, res, next) => {
+        res.render('add', {
+            name: '',
+            author: '',
+            key:''
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                // console.log(data)
-                res.send('data insert successfully !')
-            })
-            .catch(error => console.error(error));
     };
 
     allPage = async (req, res, next) => {
@@ -47,8 +32,8 @@ class UserController {
     };
 
     getPage = async (req, res, next) => {
-        const id = req.params.id
-        // res.send(id)
+        // const id = req.params.id
+        const id = 96710367119;
         fetch(`https://api.hubapi.com/content/api/v2/pages/${id}`, {
             method: 'GET',
             headers: {
@@ -62,10 +47,45 @@ class UserController {
             })
             .then((data) => {
                 // console.log(data)
-                res.send(data)
+                // res.send(data)
+                // return res.status(200).send({ ...data });
+                return Promise.resolve(data);
+                // res.render('index', {data});
+                next();
             })
             .catch(error => console.error(error));
-    }
+    };
+
+    create = async (req, res, next) => {
+        // res.send('test')
+        // let liveKey = req.body.liveKey;
+        // let livePageId = req.body.livePageId;
+        // let portalKey = req.body.portalKey;
+        // console.log(liveKey,',', livePageId,',', portalKey)
+
+        const data =  this.getPage(req);
+        console.log(data)
+
+        // fetch(`https://api.hubapi.com/content/api/v2/pages`, {
+        //     method: 'POST',
+        //     body: JSON.stringify(
+        //         req.body
+        //     ),
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type': 'application/json',
+        //         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        //     },
+        // })
+        //     .then((response) => {
+        //         return response.json();
+        //     })
+        //     .then((data) => {
+        //         // console.log(data)
+        //         res.send('data insert successfully !')
+        //     })
+        //     .catch(error => console.error(error));
+    };
 
 
 }
