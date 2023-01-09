@@ -6,7 +6,7 @@ const router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res, next) {
     // const id = req.params.id
-    const id = '96710367119';
+    const id = '';
     // res.send(id)
     fetch(`https://api.hubapi.com/content/api/v2/pages/${id}`, {
         method: 'GET',
